@@ -1,0 +1,6 @@
+F&A(d8SIj3riKGvi*Xko
+
+nama db = id19357186_db
+user db = id19357186_dbapp
+host = localhost
+password = CY5M~J=B<spYl)o5
