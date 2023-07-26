@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Queue::class);
     }
+
+    public function loginLogs()
+    {
+        return $this->hasMany(Loginlog::class, 'user_id');
+    }
 }

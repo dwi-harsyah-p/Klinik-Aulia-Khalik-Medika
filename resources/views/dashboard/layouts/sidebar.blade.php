@@ -61,6 +61,10 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-user-alt"></i></div>
                         User
                     </a>                                                             
+                    <a class="nav-link {{ Request::is('loginlog*') ? 'active' : '' }}" href="/loginlog">
+                        <div class="sb-nav-link-icon"><i class="fas fa-lock"></i></div>
+                        Log Login
+                    </a>                                                             
                     @endcan   
 
                 </div>

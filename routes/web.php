@@ -13,6 +13,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\PasienController;
+use App\Http\Controllers\LoginLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,3 +93,5 @@ Route::put('user/{user:id}/password', [UserController::class, 'updatePassword'])
 // Route::get('/user', [UserController::class, 'index'])->middleware('isadmin');
 // Route::get('/user/create', [UserController::class, 'create'])->middleware('isadmin');
 // Route::get('/user/{id}/edit', [UserController::class, 'edit'])->middleware('isadmin');
+
+Route::get('/loginlog', [LoginLogController::class, 'index'])->middleware('isadmin');
