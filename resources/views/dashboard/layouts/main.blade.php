@@ -23,7 +23,64 @@
                         {{-- <h2 class="mt-2 border-bottom pb-3">{{ $title }}</h2> --}}
                         @yield('container')
                     </div>
-                </main>
+                </main>            
+  
+                <!-- Modal -->
+                <div class="modal fade" id="ModalPassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Change Password</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/change-password" method="post" class="mb-3">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="current_password" class="form-label">Password Lama</label>
+                                    <input type="password" class="form-control @error('current_password')
+                                        is-invalid
+                                    @enderror" id="current_password" name="current_password" required autofocus>    
+                                    @error('current_password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div> 
+                                <div class="mb-3">
+                                    <label for="new_password" class="form-label">Password Baru</label>
+                                    <input type="password" class="form-control @error('new_password')
+                                        is-invalid
+                                    @enderror" id="new_password" name="new_password" required autofocus>    
+                                    @error('new_password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>   
+                                <div class="mb-3">
+                                    <label for="confirm_password" class="form-label">Konfirmasi Password</label>
+                                    <input type="password" class="form-control @error('confirm_password')
+                                        is-invalid
+                                    @enderror" id="confirm_password" name="confirm_password" required autofocus>    
+                                    @error('confirm_password')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>                          
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Ubah Password</button>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

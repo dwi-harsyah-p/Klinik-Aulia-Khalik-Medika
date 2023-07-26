@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Loginlog; // Tambahkan ini untuk mengimpor model LoginLog
 use App\Models\User; // Tambahkan ini untuk mengimpor model LoginLog
@@ -92,5 +93,53 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function LoginLog(){
+        $logs = Loginlog::all()->sortByDesc('created_at');
+
+        // Calculate login duration for each logout entry
+        foreach ($logs as $log) {
+            if ($log->keterangan === 'logout') {
+                $loginTime = strtotime($log->login_time);
+                $logoutTime = strtotime($log->created_at);
+                $duration = $logoutTime - $loginTime;
+                $log->durasi = gmdate('H:i:s', $duration);
+            }
+        }
+
+        return view('login.log', [
+            'title' => 'Login Log',
+            'logs' => $logs,
+        ]);
+    }
+
+    public function changePassword(Request $request){
+        // $request->validate([
+        //     'current_password' => 'required',
+        //     'new_password' => 'required|min:6|different:current_password',
+        //     'confirm_password' => 'required|same:new_password',
+        // ]);
+
+        $user = Auth::user();
+
+        if (Hash::check($request->current_password, $user->password)) {
+            if ($request->new_password != $request->confirm_password) {
+                return redirect()->back()->with('error', 'The confirm password and new password must match.');
+            }
+            if ($request->current_password == $request->new_password) {
+                return redirect()->back()->with('error', 'The new password and current password must be different.');
+            }
+            $user->update([
+                'password' => Hash::make($request->new_password),
+            ]);
+
+            return redirect()->back()->with('update', 'Password has been changed successfully.');            
+        } else {
+            return redirect()->back()->with('error', 'The current password is incorrect.');            
+            
+            // return back()->withErrors(['current_password' => 'The current password is incorrect.']);
+        }
+
     }
 }

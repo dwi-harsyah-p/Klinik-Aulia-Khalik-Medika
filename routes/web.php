@@ -65,8 +65,6 @@ Route::resource('/records', RecordController::class)->middleware('isdokterpasien
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
 Route::post('/updateprofile', [ProfileController::class, 'update'])->middleware('auth');
 
-// Route::get('/changepassword', [ChangePasswordController::class, 'index'])->middleware('nouser');
-
 
 // Route::resource('/pasien', PasienController::class)->middleware('isdokter');
 Route::resource('/pasien', PasienController::class)->except([
@@ -94,4 +92,5 @@ Route::put('user/{user:id}/password', [UserController::class, 'updatePassword'])
 // Route::get('/user/create', [UserController::class, 'create'])->middleware('isadmin');
 // Route::get('/user/{id}/edit', [UserController::class, 'edit'])->middleware('isadmin');
 
-Route::get('/loginlog', [LoginLogController::class, 'index'])->middleware('isadmin');
+Route::get('/loginlog', [LoginController::class, 'LoginLog'])->middleware('isadmin');
+Route::post('change-password', [LoginController::class, 'changePassword'])->middleware('auth');
